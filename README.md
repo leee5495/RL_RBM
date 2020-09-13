@@ -4,4 +4,4 @@ Experimentation code for Enhanced Collaborative Filtering with Reinforcement Lea
 ![image](https://github.com/leee5495/RL_RBM/blob/master/misc/%EB%8F%84%ED%98%95.png)
 
 ### Data
-- used data: [MovieLens 100K Dataset](https://grouplens.org/datasets/movielens/100k/)
+- download data from: [MovieLens 100K Dataset](https://grouplens.org/datasets/movielens/100k/)
