@@ -93,3 +93,6 @@ class PolicyNetwork(torch.nn.Module):
             
     def save_model(self, modelpath):
         torch.save(self.state_dict(), os.path.join(modelpath, "policy_net.pt"))
+        
+    def load_model(self, modelpath, modelname):
+        self.load_state_dict(torch.load(os.path.join(modelpath, modelname)))
