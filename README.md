@@ -5,3 +5,13 @@ Experimentation code for Enhanced Collaborative Filtering with Reinforcement Lea
 
 ### Data
 - download data from: [MovieLens 100K Dataset](https://grouplens.org/datasets/movielens/100k/)
+
+### preprocess.py
+preprocessed MovieLens 100K data
+- `datapath`: path to the downloaded MovieLens 100K data (also saves the preprocessed data)
+- output
+  - `train_matrix`: user-item rating matrix up to 70% of rating data
+  - `rating_matrix`: user-item rating matrix up to 90% of rating data
+  - `train_interaction`: interaction data given in list of tuples - (current_rating_vec, next_rated_item, next_rating)
+  - `valid_interaction`: interaction data for validation (first half of last 10% of rating data)
+  - `test_interaction`: interaction data for test (last half of last 10% of rating data)
