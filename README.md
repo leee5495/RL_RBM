@@ -5,9 +5,14 @@ Experimentation code for Enhanced Collaborative Filtering with Reinforcement Lea
 
 ### Data
 - download data from: [MovieLens 100K Dataset](https://grouplens.org/datasets/movielens/100k/)
+- unzip `ml-100k.zip` to `./data`
 
 ### preprocess.py
 preprocesses MovieLens 100K data
+``` python
+# run this command to preprocess data
+$ python preprocess.py
+```
 - `datapath`: path to the downloaded MovieLens 100K data (also saves the preprocessed data)
 - output
   - `train_matrix`: user-item rating matrix up to 70% of rating data
@@ -18,20 +23,20 @@ preprocesses MovieLens 100K data
 
 ### train.py
 trains RLRBM using the preprocessed MovieLens 100K data
+``` python
+# run this command to train RLRBM model
+$ python train.py
+```
 - `datapath`: path to the preprocessed data
 - `modelpath`: path to save the trained policy network
 - hyperparameters
   - RBM hyperparameters
-    ```
-    k = number of contrastive divergence steps
-    epochs = number of train epochs
-    batch_size = size of each batch
-    ```
+    - `k` = number of contrastive divergence steps
+    - `epochs` = number of train epochs
+    - `batch_size` = size of each batch
   - policy network hyperparameters
-    ```
-    epochs = number of train epochs
-    batch_size = size of each batch
-    k = number of items to sample for each recommendation action
-    learning_rate = learning rate of the optimizer
-    neg_reward = reward to give if the next true item is not in the recommended items
-    ```
+    - `epochs` = number of train epochs
+    - `batch_size` = size of each batch
+    - `k` = number of items to sample for each recommendation action
+    - `learning_rate` = learning rate of the optimizer
+    - `neg_reward` = reward to give if the next true item is not in the recommended items
