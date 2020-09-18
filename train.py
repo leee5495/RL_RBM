@@ -48,12 +48,12 @@ if __name__ == "__main__":
     
     # train policy network
     epochs = 10
-    batch_size = 500
+    batch_size = 20
     k = 5
     learning_rate = 0.00005
     neg_reward = -0.05
     policy_net = PolicyNetwork(rbm, learning_rate)
-    policy_net.train(train_interaction, epochs, batch_size, k, neg_reward)
+    policy_net.train_epoch_first(train_interaction, epochs, batch_size, k, neg_reward)
     
     # validate
     valid_input = np.array([i[0] for i in valid_interaction]).astype(float)

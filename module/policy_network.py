@@ -91,6 +91,18 @@ class PolicyNetwork(torch.nn.Module):
                 epoch_loss += loss
             print('Epoch Loss (epoch=%d): %.4f' % (epoch, epoch_loss))
             
+    def train_epoch_first(self, train_interaction, epochs, batch_size, k, neg_reward):
+        for i in range(0, len(train_interaction)-batch_size, batch_size):
+            for epochs in range(epochs):
+                interaction = train_interaction[i:i+batch_size]
+                state = np.array([interaction[j][0] for j in range(len(interaction))])/5
+                actions, log_probs, _ = self.get_action(state, k)
+                reward = self.get_reward(actions, interaction, neg_reward)
+                loss = self.update_policy(reward, log_probs)
+                if torch.isnan(loss):
+                    print("NaN Loss")
+                    break
+            
     def save_model(self, modelpath):
         torch.save(self.state_dict(), os.path.join(modelpath, "policy_net.pt"))
         
