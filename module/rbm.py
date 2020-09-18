@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import json
+
 import torch
+import numpy as np
 import torch.nn as nn
 
 class RBM(nn.Module):
@@ -91,4 +94,40 @@ class RBM(nn.Module):
             print('Epoch Error (epoch=%d): %.4f' % (epoch, epoch_error))
             
     def save(self, sfile):
-        torch.save(self.state_dict(), sfile)
+        state_dict = {}
+        state_dict['num_visible'] = self.num_visible
+        state_dict['num_hidden'] = self.num_hidden
+        state_dict['k'] = self.k
+        state_dict['learning_rate'] = self.learning_rate
+        state_dict['momentum_coefficient'] = self.momentum_coefficient
+        state_dict['weight_decay'] = self.weight_decay
+
+        state_dict['weights'] = self.weights.numpy().tolist()
+        state_dict['visible_bias'] = self.visible_bias.numpy().tolist()
+        state_dict['hidden_bias'] = self.hidden_bias.numpy().tolist()
+
+        state_dict['weights_momentum'] = self.weights_momentum.numpy().tolist()
+        state_dict['visible_bias_momentum'] = self.visible_bias_momentum.numpy().tolist()
+        state_dict['hidden_bias_momentum'] = self.hidden_bias_momentum.numpy().tolist()
+        
+        with open(sfile, 'w') as fp:
+            json.dump(state_dict, fp)
+            
+    def load(self, sfile):
+        with open(sfile, 'r') as fp:
+            state_dict = json.load(fp)
+            
+        self.num_visible = state_dict['num_visible'] = self.num_visible
+        self.num_hidden = state_dict['num_hidden'] = self.num_hidden
+        self.k = state_dict['k'] = self.k
+        self.learning_rate = state_dict['learning_rate'] = self.learning_rate
+        self.momentum_coefficient = state_dict['momentum_coefficient'] = self.momentum_coefficient
+        self.weight_decay = state_dict['weight_decay'] = self.weight_decay
+
+        self.weights = torch.FloatTensor(np.array(state_dict['weights']))
+        self.visible_bias = torch.FloatTensor(np.array(state_dict['num_visible']))
+        self.hidden_bias = torch.FloatTensor(np.array(state_dict['hidden_bias']))
+
+        self.weights_momentum = torch.FloatTensor(np.array(state_dict['weights_momentum']))
+        self.visible_bias_momentum = torch.FloatTensor(np.array(state_dict['visible_bias_momentum']))
+        self.hidden_bias_momentum = torch.FloatTensor(np.array(state_dict['hidden_bias_momentum']))
