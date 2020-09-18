@@ -47,10 +47,10 @@ if __name__ == "__main__":
     rbm.train(train_matrix, epochs, batch_size)
     
     # train policy network
-    epochs = 10
+    epochs = 5
     batch_size = 20
     k = 5
-    learning_rate = 0.00005
+    learning_rate = 0.0001
     neg_reward = -0.05
     policy_net = PolicyNetwork(rbm, learning_rate)
     policy_net.train_epoch_first(train_interaction, epochs, batch_size, k, neg_reward)
