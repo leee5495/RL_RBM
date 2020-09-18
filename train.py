@@ -41,16 +41,16 @@ if __name__ == "__main__":
     num_visible = train_matrix.shape[1]
     num_hidden = 128
     k = 5
-    epochs = 25
+    epochs = 100
     batch_size = 20
     rbm = RBM(num_visible, num_hidden, k)
     rbm.train(train_matrix, epochs, batch_size)
     
     # train policy network
-    epochs = 1
+    epochs = 10
     batch_size = 500
     k = 5
-    learning_rate = 0.0005
+    learning_rate = 0.00005
     neg_reward = -0.05
     policy_net = PolicyNetwork(rbm, learning_rate)
     policy_net.train(train_interaction, epochs, batch_size, k, neg_reward)
