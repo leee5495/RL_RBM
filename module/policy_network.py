@@ -93,9 +93,9 @@ class PolicyNetwork(torch.nn.Module):
             
     def train_epoch_first(self, train_interaction, epochs, batch_size, k, neg_reward):
         for i in range(0, len(train_interaction)-batch_size, batch_size):
+            interaction = train_interaction[i:i+batch_size]
+            state = np.array([interaction[j][0] for j in range(len(interaction))])/5
             for epochs in range(epochs):
-                interaction = train_interaction[i:i+batch_size]
-                state = np.array([interaction[j][0] for j in range(len(interaction))])/5
                 actions, log_probs, _ = self.get_action(state, k)
                 reward = self.get_reward(actions, interaction, neg_reward)
                 loss = self.update_policy(reward, log_probs)
